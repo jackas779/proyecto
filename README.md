@@ -83,13 +83,6 @@ Como instrumentos de recolección de información se utiliza el cuestionario con
 </p>
 </div>
 
-<strong>Análisis del levantamiento de información:</strong>
-<div align=justify>
-<p>
-Luego de realizar la recolección de información se pudo determinar que la organización del control y manejo del inventario del colegio presenta demoras o retrasos, esto hace que el control del inventario no sea eficiente. 
-Además de esta desventaja se presenta otra falencia, al momento de que algún docente u otra persona necesite un elemento, no se especifica a que persona se le hizo el préstamo ya que se le pide al encargado de forma verbal y al no hacerle un seguimiento de los materiales de la persona esto conlleva alguna perdida o daño del elemento perjudicando así al encargado del inventario.
-</p>
-</div>
 
 
 
