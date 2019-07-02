@@ -69,19 +69,6 @@ La implementación del sistema tendrá muchos beneficios al colegio, y también 
 </p>
 </div>
 
-Instrumentos y tecnicas de recolección de datos
---------------------------------------------------
-
-<div align=justify>
-<p>
-Es importante resaltar que un sistema de información inicia con una investigación preliminar de la información concerniente al proyecto que se pretende desarrollar. Para conocer los requerimientos de los usuarios se utilizan las técnicas de recopilación de información como son la entrevista, la observación y encuestas para saber todos los requerimientos del cliente y conocer específicamente las necesidades que se tienen para el manejo de la información.
-La entrevista da cuenta de la información y de las observaciones del manejo de inventarios, en consecuencia, se aplicará al encargado del control del inventario del colegio.
-La observación permite documentar los procedimientos realizados, las condiciones físicas del colegio y de almacenaje de los inventarios. Se trata de una observación no participativa en la que se documenta el análisis para la investigación y que evidencie el manejo de los inventarios.
-Como instrumentos de recolección de información se utiliza el cuestionario con el fin de realizar una buena entrevista y tener claro el objetivo.
-
-
-</p>
-</div>
 
 
 
