@@ -22,6 +22,6 @@ from .views import Home
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', LoginView.as_view(template_name="login.html"), name="login"),
-    path('index/', Home.as_view(), name="index"),
+    path('', Home.as_view(), name="index"),
     path('logout/', LogoutView.as_view(), name="logout"),
 ]
