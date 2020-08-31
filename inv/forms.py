@@ -5,3 +5,6 @@ class CategoriaForm(BSModalModelForm):
     class Meta:
         model = Categorias
         fields = ['descripcion']
+        labels = {
+            'descripcion': 'Nombre'
+        }

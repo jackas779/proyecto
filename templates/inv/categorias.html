@@ -34,7 +34,7 @@
                 <tbody>
                     {% for categoria in categorias %}
                     <tr>
-                        <td>{{ categoria.descripcion }}</td>
+                        <td>{{ categoria.descripcion|title }}</td>
                         <td>
                           {% if categoria.estado is True %}
                           <p class="text-success">Activo</p>
@@ -44,12 +44,12 @@
                         </td>
                         <td>{{ categoria.fecha_creacion }}</td>
                         <td>{{ categoria.fecha_modificacion }}</td>
-                        <td>{{ categoria.usuario_creacion }}</td>
+                        <td>{{ categoria.usuario_creacion|title }}</td>
                         <td>
-                          {% if categoria.usuario_modificacion == 0 %}
+                          {% if categoria.usuario_modificacion == 0 or None %}
                           <p>-----------------</p>
                           {% else %}
-                          <p>{{categoria.usuario_modificacion}}</p>
+                          <p>{{ categoria.usuario_modificacion }}</p>
                           {% endif %}    
                         </td>
                         <td style="font-size: 20px;">

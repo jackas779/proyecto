@@ -10,10 +10,9 @@
   
     <div class="modal-body">
         <div class="form-group{% if field.errors %} invalid{% endif %}">
-          <label for="nombre">Nombre</label>
             {% for field in form %}
                 <div class="form-group{% if field.errors %} invalid{% endif %}">
-                {{ field }}
+                {{ field|as_crispy_field }}
                 </div>
             {% endfor %}
           {% for error in field.errors %}
@@ -23,8 +22,8 @@
     </div>
   
     <div class="modal-footer">
-      <button type="button" class="submit-btn btn btn-success">Modificar</button>
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      <button type="button" class="submit-btn btn btn-success rounded-0">Modificar</button>
+      <button type="button" class="btn btn-secondary rounded-0" data-dismiss="modal">Cerrar</button>
     </div>
   
   </form>
