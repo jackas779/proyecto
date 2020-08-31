@@ -272,6 +272,12 @@
         <!-- /footer content -->
       </div>
     </div>
+    <!-- Modal Bootstrap -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content"></div>
+      </div>
+    </div>
 
     <!-- jQuery -->
     <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
@@ -316,6 +322,9 @@
 
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/9f4912486a.js" crossorigin="anonymous"></script>
-	
+    <!-- Django Modal Bootstrap -->
+    <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
+    {% block js %}
+    {% endblock js %}
   </body>
 </html>
