@@ -13,7 +13,6 @@
             </ul>
             <div class="clearfix"></div>
           </div>
-
           <div class="x_content">
             <div class="table-responsive">
               <table class="table table-striped jambo_table bulk_action">
@@ -27,10 +26,8 @@
                     <th class="column-title">Modificado por</th>
                     <th class="column-title">Acciones</th>
                   </th>
-                    
                   </tr>
                 </thead>
-
                 <tbody>
                     {% for categoria in categorias %}
                     <tr>
@@ -46,7 +43,7 @@
                         <td>{{ categoria.fecha_modificacion }}</td>
                         <td>{{ categoria.usuario_creacion|title }}</td>
                         <td>
-                          {% if categoria.usuario_modificacion == 0 or None %}
+                          {% if categoria.usuario_modificacion is None %}
                           <p>-----------------</p>
                           {% else %}
                           <p>{{ categoria.usuario_modificacion }}</p>
@@ -55,7 +52,7 @@
                         <td style="font-size: 20px;">
                           <a href="#" class="update-categoria" data-form-url="{% url 'categoria_edit' categoria.pk %}">
                             <i class="fas fa-edit text-warning mr-3"></i></a>
-                          <a href="#">
+                          <a href="{% url 'categoria_inactivar' categoria.pk %}">
                             {% if categoria.estado is True %}
                             <i class="fas fa-toggle-on text-success"></i>
                             {% else %}
@@ -68,8 +65,6 @@
                 </tbody>
               </table>
             </div>
-                    
-                
           </div>
         </div>
       </div>
@@ -82,5 +77,5 @@
         $(this).modalForm({formURL: $(this).data('form-url')});
     });
   });
-  </script>
+</script>
 {% endblock js%}
