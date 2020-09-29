@@ -1,5 +1,5 @@
 from bootstrap_modal_forms.forms import BSModalModelForm
-from .models import Categorias, Marcas
+from .models import Categorias, Marcas, Proveedores
 
 class CategoriaForm(BSModalModelForm):
     class Meta:
@@ -17,3 +17,9 @@ class MarcaForm(BSModalModelForm):
         labels = {
             'descripcion': 'Nombre'
         }
+
+
+class ProveedorForm(BSModalModelForm):
+    class Meta:
+        model = Proveedores
+        fields = ['nombres', 'direccion', 'contacto', 'email', 'telefono']

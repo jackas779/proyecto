@@ -8,10 +8,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from bootstrap_modal_forms.generic import BSModalUpdateView, BSModalCreateView
 
 #forms
-from .forms import CategoriaForm, MarcaForm
+from .forms import CategoriaForm, MarcaForm, ProveedorForm
 
 #Models
-from .models import Categorias, Marcas
+from .models import Categorias, Marcas, Proveedores
 
 
 class CategoriaList(LoginRequiredMixin, ListView):
@@ -74,3 +74,72 @@ class MarcaNew(LoginRequiredMixin, BSModalCreateView):
     def form_valid(self, form):
         form.instance.usuario_creacion = self.request.user
         return super().form_valid(form)
+
+
+class MarcaEdit(LoginRequiredMixin, BSModalUpdateView):
+    """Vista para editar marcas"""
+    model = Marcas
+    template_name = 'inv/marcaForm.html'
+    form_class = MarcaForm
+    success_url = reverse_lazy('marca_list')
+
+    def form_valid(self, form):
+        form.instance.usuario_modificacion = self.request.user
+        return super().form_valid(form)
+
+
+def marca_inactivar(request, id):
+    model = Marcas.objects.get(pk=id)
+    
+    if request.method == "GET":
+        if model.estado is True:
+            model.estado = False
+        else:
+            model.estado = True
+        model.usuario_modificacion = request.user
+        model.save()
+    return redirect("marca_list")
+
+
+class ProveedorList(LoginRequiredMixin, ListView):
+    """Vista para mostrar todas los proveedores"""
+    model = Proveedores
+    template_name = 'inv/proveedorList.html'
+    context_object_name = 'proveedores'
+
+
+class ProveedorNew(LoginRequiredMixin, BSModalCreateView):
+    """Vista para crear nuevos proveedores"""
+    model = Proveedores
+    template_name = 'inv/proveedorForm.html'
+    form_class = ProveedorForm
+    success_url = reverse_lazy('proveedor_list')
+
+    def form_valid(self, form):
+        form.instance.usuario_creacion = self.request.user
+        return super().form_valid(form)
+
+
+class ProveedorEdit(LoginRequiredMixin, BSModalUpdateView):
+    """Vista para editar proveedor"""
+    model = Proveedores
+    template_name = 'inv/proveedorForm.html'
+    form_class = ProveedorForm
+    success_url = reverse_lazy('proveedor_list')
+
+    def form_valid(self, form):
+        form.instance.usuario_modificacion = self.request.user
+        return super().form_valid(form)
+
+
+def proveedor_inactivar(request, id):
+    model = Proveedores.objects.get(pk=id)
+    
+    if request.method == "GET":
+        if model.estado is True:
+            model.estado = False
+        else:
+            model.estado = True
+        model.usuario_modificacion = request.user
+        model.save()
+    return redirect("proveedor_list")

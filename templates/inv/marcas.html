@@ -45,9 +45,9 @@
                           {% endif %}    
                         </td>
                         <td style="font-size: 20px;">
-                          <a href="#" class="update-categoria" data-form-url="#">
+                          <a href="#" class="update-marca" data-form-url="{% url 'marca_edit' marca.pk %}">
                             <i class="fas fa-edit text-warning mr-3"></i></a>
-                          <a href="#">
+                          <a href="{% url 'marca_inactivar' marca.pk %}">
                             {% if marca.estado is True %}
                             <i class="fas fa-toggle-on text-success"></i>
                             {% else %}
@@ -70,6 +70,10 @@
   $(function () {
     $("#create-marca").modalForm({
         formURL: "{% url 'marca_new' %}"
+    });
+
+    $(".update-marca").each(function () {
+        $(this).modalForm({formURL: $(this).data('form-url')});
     });
   });
 </script>

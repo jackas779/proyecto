@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="">
+    <div class="col-md-12 col-sm-12  ">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Proveedores</h2>
+            <a href="#" class="btn btn-primary float-right rounded-0" id="create-proveedor">Crear Proveedor</a>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <div class="table-responsive">
+              <table class="table table-striped jambo_table bulk_action">
+                <thead>
+                  <tr class="headings">
+                    <th class="column-title">Nombres</th>
+                    <th class="column-title">Contacto</th>
+                    <th class="column-title">Email</th>
+                    <th class="column-title">Telefono</th>
+                    <th class="column-title">Fecha creación</th>
+                    <th class="column-title">Fecha modificacion</th>
+                    <th class="column-title">Creado por</th>
+                    <th class="column-title">Modificado por</th>
+                    <th class="column-title">Acciones</th>
+                  </th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for proveedor in proveedores %}
+                    <tr>
+                        <td>{{ proveedor.nombres|title }}</td>
+                        <td>{{ proveedor.contacto|title }}</td>
+                        <td>{{ proveedor.email|title }}</td>
+                        <td>{{ proveedor.telefono|title }}</td>
+                        <td>{{ proveedor.fecha_creacion|date:"d/m/Y" }}</td>
+                        <td>{{ proveedor.fecha_modificacion|date:"d/m/Y" }}</td>
+                        <td>{{ proveedor.usuario_creacion|title }}</td>
+                        <td>
+                          {% if proveedor.usuario_modificacion is None %}
+                          <p>----------------</p>
+                          {% else %}
+                          <p>{{ proveedor.usuario_modificacion|title }}</p>
+                          {% endif %}    
+                        </td>
+                        <td style="font-size: 20px;">
+                            <a href="#" class="update-proveedor" data-form-url="{% url 'proveedor_edit' proveedor.pk %}">
+                                <i class="fas fa-edit text-warning mr-3"></i>
+                            </a>
+                            <a href="{% url 'proveedor_inactivar' proveedor.pk %}">
+                            {% if proveedor.estado is True %}
+                            <i class="fas fa-toggle-on text-success"></i>
+                            {% else %}
+                            <i class="fas fa-toggle-off text-danger"></i>
+                            {% endif %}
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+{% endblock content %}
+{% block js %}
+<script type="text/javascript">
+  $(function () {
+    $("#create-proveedor").modalForm({
+        formURL: "{% url 'proveedor_new' %}"
+    });
+
+    $(".update-proveedor").each(function () {
+        $(this).modalForm({formURL: $(this).data('form-url')});
+    });
+  });
+</script>
+{% endblock js%}

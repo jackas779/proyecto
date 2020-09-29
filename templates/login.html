@@ -27,9 +27,19 @@
       <div class="wrap-login100">
         <form class="login100-form validate-form" method="POST" autocomplete="off">
           {% csrf_token %}
+          
           <span class="login100-form-title p-b-26">
             Bienvenido
           </span>
+          <p class="text-center text-danger">
+          {% if form.errors %}
+            {% if form.non_field_errors  %}
+              {% for error in form.non_field_errors %}
+                {{ error|escape }}
+              {% endfor %}
+            {% endif %}
+          {% endif %}
+          </p>
           <div class="wrap-input100 validate-input" data-validate="Email valido: a@b.c">
             <input class="input100" type="text" name="username">
             <span class="focus-input100" data-placeholder="Email"></span>
