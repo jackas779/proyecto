@@ -52,26 +52,25 @@
                 <img src="{% static 'images/img.jpg' %}" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+                <span>Bienvenido,</span>
+                <h2>{{ user.first_name|title }} {{ user.last_name|title }}</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
-
             <br />
-
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>General</h3>
                 <ul class="nav side-menu">
                   <li><a href="{% url 'index' %}"><i class="fa fa-home"></i>Inicio</a></li>
-                  <li><a href="#"><i class="fa fa-layer-group"></i>Catálogo <span class="fa fa-chevron-down"></span></a>
+                  <li><a href="{% url 'categoria_list' %}"><i class="fa fa-align-left"></i>Categorías</a></li>
+                  <li><a href="{% url 'marca_list' %}"><i class="fa fa-layer-group"></i>Marcas</a></li>
+                  <li><a href="{% url 'producto_list' %}"><i class="fa fa-align-justify"></i>Productos</a></li>
+                  <li><a href="{% url 'proveedor_list' %}"><i class="fa fa-users"></i>Proveedores</a></li>
+                  <li><a href="#"><i class="fa fa-layer-group"></i>Movimientos<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{% url 'categoria_list' %}">Categorías</a></li>
-                      <li><a href="{% url 'marca_list' %}">Marcas</a></li>
-                      <li><a href="{% url 'proveedor_list' %}">Proveedores</a></li>
-                      <li><a href="{% url 'producto_list' %}">Productos</a></li>
+                      <li><a href="#">Entradas</a></li>
+                      <li><a href="#">Salidas</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
