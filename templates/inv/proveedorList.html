@@ -29,9 +29,9 @@
                     {% for proveedor in proveedores %}
                     <tr>
                         <td>{{ proveedor.nombres|title }}</td>
-                        <td>{{ proveedor.contacto|title }}</td>
-                        <td>{{ proveedor.email|title }}</td>
-                        <td>{{ proveedor.telefono|title }}</td>
+                        <td>{{ proveedor.contacto }}</td>
+                        <td>{{ proveedor.email }}</td>
+                        <td>{{ proveedor.telefono }}</td>
                         <td>{{ proveedor.fecha_creacion|date:"d/m/Y" }}</td>
                         <td>{{ proveedor.fecha_modificacion|date:"d/m/Y" }}</td>
                         <td>{{ proveedor.usuario_creacion|title }}</td>

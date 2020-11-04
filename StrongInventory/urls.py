@@ -10,5 +10,6 @@ urlpatterns = [
     path('', Home.as_view(), name="index"),
     path('logout/', LogoutView.as_view(), name="logout"),
     path('inv/', include('inv.urls')),
+    path('mov/', include('mov.urls')),
 
 ]

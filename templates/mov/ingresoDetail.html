@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <h5 class="modal-title"><i class="fa fa-shopping-cart mr-1" aria-hidden="true"></i>Consulta de detalle de productos
+    </h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <table class="table table-striped jambo_table bulk_action">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Producto</th>
+                <th>Categoría</th>
+                <th>Marca</th>
+                <th>Cantidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for detalle in detalles %}
+            <tr>
+                <td>{{ detalle.producto.codigo }}</td>
+                <td>{{ detalle.producto.descripcion }}</td>
+                <td>{{ detalle.producto.categoria }}</td>
+                <td>{{ detalle.producto.marca }}</td>
+                <td>{{ detalle.cantidad }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary rounded-0" data-dismiss="modal">Cerrar</button>
+</div>

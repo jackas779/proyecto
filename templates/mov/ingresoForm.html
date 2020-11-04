@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="">
+    <div class="col-md-12 col-sm-12  ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><i class="fa fa-plus mr-2" aria-hidden="true"></i>Creación de ingreso</h2>
+                <div class="clearfix"></div>
+            </div>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="card card-secondary">
+                                <div class="card-header">
+                                    <h4><i class="fas fa-boxes mr-2"></i>Detalles de productos</h4>
+                                </div>
+                                <div class="card-body">
+                                    <label class="font-weight-bold">Buscador de productos:</label>
+                                    <div class="input-group">
+                                        <input id="search" class="form-control"
+                                            placeholder="Ingrese una descripción del producto" name="search">
+                                        <div class="input-group-prepend">
+                                            <button type="button" class="btn btn-danger btnClearSearch"><i
+                                                    class="fa fa-times" aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-danger btn-sm btnRemoveAll mb-2 rounded-0">
+                                        <i class="fa fa-trash mr-1" aria-hidden="true"></i>Eliminar todos mis items
+                                    </button>
+                                    <table class="table" id="tblProducts">
+                                        <thead>
+                                            <tr>
+                                                <th>Código</th>
+                                                <th>Producto</th>
+                                                <th>Categoría</th>
+                                                <th>Cantidad</th>
+                                                <th>Eliminar</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-success rounded-0"><i class="fa fa-check mr-1"
+                                            aria-hidden="true"></i>Guardar registro</button>
+                                    <a href="{% url 'ingreso_list' %}" class="btn btn-danger rounded-0"><i
+                                            class="fa fa-times mr-1" aria-hidden="true"></i>Cancelar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4><i class="fa fa-shopping-cart mr-2" aria-hidden="true"></i>Datos del ingreso
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    {{form|crispy}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <script>
+
+            </script>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="{% static 'build/js/form.js' %}"></script>
+<script>
+    var tblProducts;
+    var ing = {
+        items: {
+            proveedor: '',
+            fecha_ingreso: '',
+            productos: []
+        },
+        calculate_invoice: function () {
+            $.each(this.items.productos, function (pos, dict) {
+                dict.pos = pos;
+            });
+        },
+        add: function (item) {
+            this.items.productos.push(item);
+            this.list();
+        },
+        list: function () {
+            tblProducts = $('#tblProducts').DataTable({
+                autoWidth: false,
+                destroy: true,
+                responsive: true,
+                data: this.items.productos,
+                order: false,
+                columns: [
+                    { 'data': 'codigo' },
+                    { 'data': 'descripcion' },
+                    { 'data': 'categoria.descripcion' },
+                    { 'data': 'cant' },
+                    { 'data': 'id' },
+                ],
+                columnDefs: [
+                    {
+                        targets: [-1],
+                        class: 'text-center',
+                        orderable: false,
+                        render: function (data, type, row) {
+                            return '<button type="button" rel="remove" class="btn btn-danger btn-xs rounded-0"><i class="fas fa-trash-alt"></i></button>';
+                        }
+                    },
+                    {
+                        targets: [-2],
+                        class: 'text-center',
+                        orderable: false,
+                        render: function (data, type, row) {
+                            return '<input type="text" name="cant" class="form-control form-control-sm input-sm"  value="' + row.cant + '" autocomplete="off">';
+                        }
+                    },
+                ],
+                rowCallback(row, data, displayNum, displayIndex, dataIndex) {
+                    $(row).find('input[name="cant"]').TouchSpin({
+                        min: 1,
+                        max: 100,
+                        step: 1,
+                        initval: 1,
+                    });
+                },
+            });
+        }
+    };
+
+    $(document).ready(function () {
+        $("#menu_toggle").click();
+
+    });
+    {% if det %}
+    var det = {{ det|safe }};
+    ing.items.productos = det;
+    ing.list();
+    {% endif %}
+    $(function () {
+        $("#search").autocomplete({
+            source: "{% url 'autocomplete' %}",
+            minLength: 0,
+            select: function (event, ui) {
+                event.preventDefault();
+                console.clear();
+                ui.item.cant = 1;
+                console.log(ing.items);
+                ing.add(ui.item);
+            }
+        });
+        $("#tblProducts").on('click', 'button[rel="remove"]', function () {
+            var tr = tblProducts.cell($(this).closest('td, li')).index();
+            ing.items.productos.splice(tr.row, 1);
+            ing.list();
+        }).on('change', 'input[name="cant"]', function () {
+            var cant = parseInt($(this).val());
+            var tr = tblProducts.cell($(this).closest('td, li')).index();
+            ing.items.productos[tr.row].cant = cant;
+        });
+        $('.btnRemoveAll').on('click', function () {
+            ing.items.productos = [];
+            ing.list();
+        });
+        $(".btnClearSearch").on('click', function () {
+            $('input[name="search"]').val('').focus();
+        });
+        $('form').on('submit', function (e) {
+            e.preventDefault();
+            if (ing.items.productos.length === 0) {
+                $.confirm({
+                    theme: 'modern',
+                    icon: 'fa fa-times',
+                    type: 'red',
+                    title: 'Notificación',
+                    content: 'Debe al menos tener un producto en su detalle de ingreso',
+                    buttons: {
+                        OK: function (OK) { }
+                    }
+                });
+                return false;
+            }
+            ing.items.proveedor = $('select[name="proveedor"]').val();
+            ing.items.fecha_ingreso = $('input[name="fecha_ingreso"]').val();
+
+            var parameters = new FormData();
+            parameters.append('ing', JSON.stringify(ing.items));
+            $.ajax({
+                url: window.location.pathname,
+                type: 'POST',
+                data: parameters,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+            }).done(function () {
+                location.href = "{% url 'ingreso_list' %}";
+            });
+        });
+
+    });
+</script>
+{% endblock js %}

@@ -1,3 +1,8 @@
+#Django
 from django.contrib import admin
 
-# Register your models here.
+#Models
+from .models import *
+
+admin.site.register(Ingreso)
+admin.site.register(DetIngreso)
