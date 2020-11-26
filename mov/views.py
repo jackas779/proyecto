@@ -26,6 +26,7 @@ class IngresoNew(LoginRequiredMixin, CreateView):
     template_name = 'mov/ingresoForm.html'
     form_class = IngresoForm
     success_url = 'ingreso_list'
+    success_message = "Ingreso creado exitosamente"
 
     def form_valid(self, form):
         form.instance.usuario_creacion = self.request.user
@@ -94,6 +95,7 @@ class IngresoEditView(LoginRequiredMixin, UpdateView):
     template_name = 'mov/ingresoForm.html'
     form_class = IngresoForm
     success_url = 'ingreso_list'
+    success_message = "Ingreso editado exitosamente"
 
     def form_valid(self, form):
         form.instance.usuario_modificion = self.request.user
@@ -159,6 +161,7 @@ class IngresoDeleteView(LoginRequiredMixin, DeleteView):
     model = Ingreso
     template_name = 'mov/ingreso_confirm_delete.html'
     success_url = reverse_lazy('ingreso_list')
+    success_message = "Ingreso eliminado exitosamente"
 
     def post(self, request, *args, **kwargs):
         with transaction.atomic():

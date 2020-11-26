@@ -1,9 +1,10 @@
 {% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <title>Inicio de Sesión</title>
+  <title>Registro</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!--===============================================================================================-->
@@ -27,48 +28,69 @@
       <div class="wrap-login100">
         <form class="login100-form validate-form" method="POST" autocomplete="off">
           {% csrf_token %}
-          
           <span class="login100-form-title p-b-26">
-            Bienvenido
+            Registro
           </span>
-          <p class="text-center text-danger">
           {% if form.errors %}
-            {% if form.non_field_errors  %}
-              {% for error in form.non_field_errors %}
+          <p class="text-center text-danger">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    {{ error|escape }}
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
                 {{ error|escape }}
-              {% endfor %}
-            {% endif %}
-          {% endif %}
-          
-          </p>
-          <p class="text-center text-success">
-            {% for message in messages %}
-            {{ message }}
             {% endfor %}
           </p>
-          <div class="wrap-input100 validate-input" data-validate="Email valido: a@b.c">
-            <input class="input100" type="text" name="username">
-            <span class="focus-input100" data-placeholder="Email"></span>
+          {% endif %}
+          <div class="form-row">
+            <div class="wrap-input100" >
+                {{form.first_name}}
+              <span class="focus-input100" data-placeholder="{{form.first_name.label}}"></span>
+            </div>
+            <div class="wrap-input100" >
+                {{form.last_name}}
+              <span class="focus-input100" data-placeholder="{{form.last_name.label}}"></span>
+            </div>
+            
           </div>
-
-          <div class="wrap-input100 validate-input" data-validate="Ingrese contraseña">
-            <span class="btn-show-pass">
-              <i class="zmdi zmdi-eye"></i>
-            </span>
-            <input class="input100" type="password" name="password">
-            <span class="focus-input100" data-placeholder="Contraseña"></span>
+          <div class="form-row">
+            <div class="wrap-input100" >
+                {{form.username}}
+              <span class="focus-input100" data-placeholder="{{form.username.label}}"></span>
+            </div>
+            <div class="wrap-input100" >
+                {{form.email}}
+              <span class="focus-input100" data-placeholder="{{form.email.label}}"></span>
+            </div>
           </div>
-
+          <div class="form-row">
+            <div class="wrap-input100">
+                <span class="btn-show-pass">
+                    <i class="zmdi zmdi-eye"></i>
+                </span>
+                {{form.password1}}
+              <span class="focus-input100" data-placeholder="{{form.password1.label}}"></span>
+            </div>
+            <div class="wrap-input100" >
+                <span class="btn-show-pass">
+                    <i class="zmdi zmdi-eye"></i>
+                </span>
+                {{form.password2}}
+              <span class="focus-input100" data-placeholder="{{form.password2.label}}"></span>
+            </div>
+          </div>
+          
           <div class="container-login100-form-btn">
             <div class="wrap-login100-form-btn">
               <div class="login100-form-bgbtn"></div>
               <button type="submit" class="login100-form-btn">
-                Login
+                SIGN UP
               </button>
             </div>
           </div>
           <div class="text-center p-t-20">
-            <span class="txt1 mr-1">¿No tienes una cuenta?</span><a class="txt2" href="{% url 'register' %}">Registrate</a>
+            <span class="txt1 mr-1">¿Ya tienes una cuenta?</span><a class="txt2" href="{% url 'login' %}">Inicia Sesión</a>
           </div>
         </form>
       </div>

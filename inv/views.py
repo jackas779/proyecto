@@ -4,6 +4,7 @@ from django.views.generic import CreateView, ListView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 #Django bootstrap model
 from bootstrap_modal_forms.generic import BSModalUpdateView, BSModalCreateView
@@ -28,6 +29,7 @@ class CategoriaNew(LoginRequiredMixin, BSModalCreateView):
     template_name = 'inv/categoriaForm.html'
     form_class = CategoriaForm
     success_url = reverse_lazy('categoria_list')
+    success_message = "Categoría creada exitosamente"
 
     def form_valid(self, form):
         form.instance.usuario_creacion = self.request.user
@@ -39,6 +41,7 @@ class CategoriaEdit(LoginRequiredMixin, BSModalUpdateView):
     template_name = 'inv/categoriaForm.html'
     form_class = CategoriaForm
     success_url = reverse_lazy('categoria_list')
+    success_message = "Categoría editada exitosamente"
 
     def form_valid(self, form):
         form.instance.usuario_modificacion = self.request.user
@@ -51,7 +54,9 @@ def categoria_inactivar(request, id):
     if request.method == "GET":
         if model.estado is True:
             model.estado = False
+            messages.success(request, 'Categoría inactivada exitosamente!')
         else:
+            messages.success(request, 'Categoría activada exitosamente!')
             model.estado = True
         model.usuario_modificacion = request.user
         model.save()
@@ -71,6 +76,7 @@ class MarcaNew(LoginRequiredMixin, BSModalCreateView):
     template_name = 'inv/marcaForm.html'
     form_class = MarcaForm
     success_url = reverse_lazy('marca_list')
+    success_message = "Marca creada exitosamente"
 
     def form_valid(self, form):
         form.instance.usuario_creacion = self.request.user
@@ -83,6 +89,7 @@ class MarcaEdit(LoginRequiredMixin, BSModalUpdateView):
     template_name = 'inv/marcaForm.html'
     form_class = MarcaForm
     success_url = reverse_lazy('marca_list')
+    success_message = "Marca editada exitosamente"
 
     def form_valid(self, form):
         form.instance.usuario_modificacion = self.request.user
@@ -95,7 +102,9 @@ def marca_inactivar(request, id):
     if request.method == "GET":
         if model.estado is True:
             model.estado = False
+            messages.success(request, 'Marca in exitosamente exitosamente!')
         else:
+            messages.success(request, 'Marca activada exitosamente!')
             model.estado = True
         model.usuario_modificacion = request.user
         model.save()
@@ -115,6 +124,7 @@ class ProveedorNew(LoginRequiredMixin, BSModalCreateView):
     template_name = 'inv/proveedorForm.html'
     form_class = ProveedorForm
     success_url = reverse_lazy('proveedor_list')
+    success_message = "Proveedor creado exitosamente"
 
     def form_valid(self, form):
         form.instance.usuario_creacion = self.request.user
@@ -127,6 +137,7 @@ class ProveedorEdit(LoginRequiredMixin, BSModalUpdateView):
     template_name = 'inv/proveedorForm.html'
     form_class = ProveedorForm
     success_url = reverse_lazy('proveedor_list')
+    success_message = "Proveedor editado exitosamente"
 
     def form_valid(self, form):
         form.instance.usuario_modificacion = self.request.user
@@ -139,8 +150,10 @@ def proveedor_inactivar(request, id):
     if request.method == "GET":
         if model.estado is True:
             model.estado = False
+            messages.success(request, 'Proveedor inactivado exitosamente!')
         else:
             model.estado = True
+            messages.success(request, 'Proveedor activado exitosamente!')
         model.usuario_modificacion = request.user
         model.save()
     return redirect("proveedor_list")
@@ -159,6 +172,7 @@ class ProductoNew(LoginRequiredMixin, BSModalCreateView):
     template_name = 'inv/productoForm.html'
     form_class = ProductoForm
     success_url = reverse_lazy('producto_list')
+    success_message = "Producto creado exitosamente"
 
     def form_valid(self, form):
         form.instance.usuario_creacion = self.request.user
@@ -171,6 +185,7 @@ class ProductoEdit(LoginRequiredMixin, BSModalUpdateView):
     template_name = 'inv/productoForm.html'
     form_class = ProductoForm
     success_url = reverse_lazy('producto_list')
+    success_message = "Producto editado exitosamente"
 
     def form_valid(self, form):
         form.instance.usuario_modificacion = self.request.user
@@ -183,8 +198,10 @@ def producto_inactivar(request, id):
     if request.method == "GET":
         if model.estado is True:
             model.estado = False
+            messages.success(request, 'Producto inactivado exitosamente!')
         else:
             model.estado = True
+            messages.success(request, 'Producto activado exitosamente!')
         model.usuario_modificacion = request.user
         model.save()
     return redirect("producto_list")
