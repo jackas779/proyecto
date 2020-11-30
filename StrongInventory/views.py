@@ -46,5 +46,5 @@ class SignUpView(CreateView):
     model = User
     form_class = RegisterForm
     template_name = 'registerform.html'
-    success_url = 'login'
+    success_url = '/login/'
     success_message = "Usuario creado exitosamente"
