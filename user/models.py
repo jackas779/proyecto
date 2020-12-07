@@ -12,6 +12,11 @@ class Profile(models.Model):
         return '{} profile'.format(self.user.username)
     
     def save(self, *args, **kwargs):
+        super().save()
+
         image = Image.open(self.image.path)
-        image.save(self.image.path)
-        super().save(*args, **kwargs)
+        #To resize the profile image
+        if image.height > 400 or image.width > 400:
+            output_size = (400, 400)
+            image.thumbnail(output_size)
+            image.save(self.image.path)

@@ -9,7 +9,7 @@ from django.contrib.auth import update_session_auth_hash
 #Models
 from .models import Profile
 #Forms
-from .forms import ProfileForm
+from .forms import ProfileForm, ProfileUpdateForm
 
 
 @login_required
@@ -17,22 +17,25 @@ def profile(request):
     """Vista para actializar el perfil del usuario"""
     if request.method == 'POST':
         user_form = ProfileForm(request.POST, instance=request.user)
-        #profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
 
-        if user_form.is_valid():
+        if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
+            profile_form.save()
             messages.success(request, 'Perfil actualizado exitosamente!')
             return redirect('profile')
         else:
             messages.error(request, "Error")
     else:
         user_form = ProfileForm(instance=request.user)
+        profile_form = ProfileUpdateForm(instance=request.user.profile)
         pro = Profile.objects.filter(user_id=request.user.id)
         if not pro:
             profile = Profile(user=request.user)
             profile.save()
     context = {
         'u_form': user_form,
+        'p_form': profile_form
     }
 
     return render(request, 'user/profile.html', context)

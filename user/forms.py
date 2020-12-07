@@ -31,5 +31,11 @@ class ProfileForm(forms.ModelForm):
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
             return instance.username
-        else:
-            return self.cleaned_data['username']
+        return self.cleaned_data['username']
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    """Formulario para actualizar foto de perfil"""
+    class Meta:
+        model = Profile
+        fields = ['image']
