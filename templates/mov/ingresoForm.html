@@ -73,7 +73,6 @@
 </div>
 {% endblock %}
 {% block js %}
-<script src="{% static 'build/js/form.js' %}"></script>
 <script>
     var tblProducts;
     var ing = {
@@ -182,8 +181,10 @@
                     title: 'Notificación',
                     content: 'Debe al menos tener un producto en su detalle de ingreso',
                     buttons: {
-                        OK: function (OK) { }
-                    }
+                        OK: {
+                            keys: ['space', 'enter']
+                        }
+				    }
                 });
                 return false;
             }

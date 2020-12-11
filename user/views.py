@@ -51,5 +51,5 @@ def password_change(request):
             form.save()
             update_session_auth_hash(request, form.user)
             messages.success(request, 'Contraseña actualizada exitosamente!')
-            return redirect('logout')
+            return redirect('change')
     return render(request, template_name, {'form': form})

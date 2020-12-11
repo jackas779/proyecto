@@ -14,7 +14,7 @@ urlpatterns = [
     path('register/', SignUpView.as_view(), name="register"),
     path('inv/', include('inv.urls')),
     path('mov/', include('mov.urls')),
-    path('profile/', include('user.urls')),
+    path('accounts/', include('user.urls')),
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

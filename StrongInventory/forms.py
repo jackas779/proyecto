@@ -33,5 +33,6 @@ class RegisterForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
+        self.fields['first_name'].widget.attrs['autofocus'] = True
         for field in iter(self.fields):
             self.fields[field].widget.attrs['class'] = 'input100'
