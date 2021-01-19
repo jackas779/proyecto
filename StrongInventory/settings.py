@@ -142,6 +142,7 @@ EMAIL_USE_SSL = False
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'statics'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )

@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	  <link rel="icon" href="{% static 'images/home.ico' %}" type="image/ico" />
+	  <link rel="icon" href="{% static 'images/home.ico' %}" type="image/x-icon" />
 
     <title>{% block title %}Strong Inventory{% endblock title %}</title>
 
@@ -70,7 +70,7 @@
                   <li><a href="#"><i class="fa fa-layer-group"></i>Movimientos<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{% url 'ingreso_list' %}">Entradas</a></li>
-                      <li><a href="#">Salidas</a></li>
+                      <li><a href="{% url 'salida_list' %}">Salidas</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -248,6 +248,8 @@
     <!-- Django Modal Bootstrap -->
     <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
     {{ form.media }}
+    {% block js %}
+    {% endblock js %}
     <script>
       $(document).ready(function () {
           $('.table').DataTable();
@@ -256,7 +258,5 @@
           },5000);
       });
     </script>
-    {% block js %}
-    {% endblock js %}
   </body>
 </html>

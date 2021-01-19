@@ -29,7 +29,10 @@ class ProveedorForm(BSModalModelForm):
 class ProductoForm(BSModalModelForm):
     class Meta:
         model = Productos
-        fields = ['codigo', 'codigo_barra', 'descripcion', 'categoria', 'marca']
+        fields = ['codigo', 'codigo_barra', 'descripcion', 'categoria', 'marca', 'image']
+        labels = {
+            'image': 'Imagen'
+        }
 
     def __init__(self, *args, **kwargs):
         super(ProductoForm, self).__init__(*args, **kwargs)

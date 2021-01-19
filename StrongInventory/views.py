@@ -9,6 +9,8 @@ from django.http import HttpResponseRedirect
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.template import RequestContext
+from django.shortcuts import render
 
 #Forms
 from .forms import *

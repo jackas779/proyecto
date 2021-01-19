@@ -38,3 +38,20 @@ class DetIngreso(models.Model):
     class Meta:
         verbose_name = 'Detalle Ingreso'
         verbose_name_plural = 'Detalles Ingresos'  
+
+
+class Salida(models.Model):
+    producto = models.ForeignKey(Productos, on_delete=models.CASCADE)
+    cantidad = models.IntegerField(validators=[MinValueValidator(1)])
+    observacion = models.TextField()
+    usuario_creacion = models.ForeignKey(User, on_delete=models.CASCADE)
+    fecha_creacion = models.DateField(auto_now_add=True)
+    usuario_modificacion = models.ForeignKey(User, null=True, blank=True, related_name='%(class)s_modificado_por', verbose_name='modificado por', on_delete=models.CASCADE)
+    fecha_modificacion = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return '{} {}'.format(self.fecha_creacion, self.producto.descripcion)
+
+    class Meta:
+        verbose_name = 'Salida'
+        verbose_name_plural = 'Salidas'

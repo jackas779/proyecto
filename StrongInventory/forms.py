@@ -20,8 +20,8 @@ class RegisterForm(UserCreationForm):
             'password2',
         ]
         labels = {
-            'first_name': 'Nombres',
-            'last_name': 'Apellidos'
+            'first_name': 'Nombre',
+            'last_name': 'Apellido'
         }
 
     def clean(self):

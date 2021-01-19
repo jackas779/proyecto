@@ -22,10 +22,11 @@
                     <table class="table table-striped jambo_table bulk_action">
                         <thead>
                             <tr class="headings">
-                                <th class="column-title">#</th>
                                 <th class="column-title">Proveedor</th>
                                 <th class="column-title">Fecha Ingreso</th>
+                                <th class="column-title">Modificado</th>
                                 <th class="column-title">Creado por</th>
+                                <th class="column-title">Modificado por</th>
                                 <th class="column-title">Acciones</th>
                                 </th>
                             </tr>
@@ -33,10 +34,15 @@
                         <tbody>
                             {% for ingreso in ingresos %}
                             <tr>
-                                <td>{{ forloop.counter }}</td>
                                 <td>{{ ingreso.proveedor.nombres|title }}</td>
-                                <td>{{ ingreso.fecha_ingreso }}</td>
+                                <td>{{ ingreso.fecha_ingreso|date:"d/m/Y" }}</td>
+                                <td>{{ ingreso.fecha_modificacion|date:"d/m/Y" }}</td>
                                 <td>{{ ingreso.usuario_creacion.first_name|title }} {{ ingreso.usuario_creacion.last_name|title }}</td>
+                                {% if ingreso.usuario_modificacion is None %}
+                                <td>-----------------</td>
+                                {% else %}
+                                <td>{{ ingreso.usuario_modificacion.first_name|title }} {{ ingreso.usuario_modificacion.last_name|title }}</td>
+                                {% endif %}
                                 <td>
                                     <button type="button" id="read-ingreso" class="bs-modal btn btn-sm btn-success rounded-0"
                                         data-form-url="{% url 'ingreso_detail' ingreso.pk %}">

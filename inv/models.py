@@ -1,7 +1,11 @@
+#Django
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.forms.models import model_to_dict
+
+#Pillow
+from PIL import Image
 
 class Categorias(models.Model):
     descripcion = models.CharField(max_length=100, null=False, blank=False, unique=True)
@@ -72,13 +76,14 @@ class Productos(models.Model):
     estado = models.BooleanField(default=True)
     categoria = models.ForeignKey(Categorias, on_delete=models.PROTECT, related_name='%(class)s_categoria')
     marca = models.ForeignKey(Marcas, on_delete=models.PROTECT)
+    image = models.ImageField(default='product.jpg', upload_to='products')
 
     def __str__(self):
         return self.descripcion
 
     
     def toJson(self):
-        item = model_to_dict(self)
+        item = model_to_dict(self, exclude=['image'])
         item['categoria'] = self.categoria.toJson()
         item['marca'] = self.marca.toJson()
         return item

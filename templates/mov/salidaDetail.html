@@ -1,0 +1,24 @@
+{% load crispy_forms_tags %}
+<form  method="post">
+    {% csrf_token %}
+<div class="modal-header">
+    <h5 class="modal-title"><i class="fa fa-shopping-cart mr-1" aria-hidden="true"></i>Consulta de salida de productos
+    </h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    {% for detalle in detalles %}
+        <div class="form-group">
+                    <p><label for="defaultCheck{{ detalle.pk }}">Observacion - {{ detalle.fecha_creacion }} por {{ detalle.usuario_creacion.first_name|title }} {{ detalle.usuario_creacion.last_name|title }}</label><input type="checkbox" name="item" value="{{detalle.pk}}" class="ml-2" id="defaultCheck{{detalle.pk}}"></p>
+            <textarea name="observacion" cols="30" rows="4" disabled readonly class="form-control">{{ detalle.observacion }}
+Cantidad: {{ detalle.cantidad }}</textarea>
+        </div>
+    {% endfor %}
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-danger btn-sm rounded-0">Eliminar</button>
+    <button type="button" class="btn btn-secondary rounded-0 btn-sm" data-dismiss="modal">Cerrar</button>
+</div>
+</form>

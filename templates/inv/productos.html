@@ -23,44 +23,34 @@
                 <thead>
                   <tr class="headings">
                     <th class="column-title">Código</th>
-                    <th class="column-title">Código de barras</th>
+                    <th class="column-title">Imagen</th>
                     <th class="column-title">Descripción</th>
                     <th class="column-title">Existencia</th>
-                    <th class="column-title">Fecha creación</th>
-                    <th class="column-title">Fecha modificacion</th>
-                    <th class="column-title">Creado por</th>
-                    <th class="column-title">Modificado por</th>
+                    <th class="column-title">Fecha modificación</th>
                     <th class="column-title">Acciones</th>
-                  </th>
                   </tr>
                 </thead>
                 <tbody>
                     {% for producto in productos %}
                     <tr>
                         <td>{{ producto.codigo }}</td>
-                        <td>{{ producto.codigo_barra }}</td>
+                        <td><img src="{{ producto.image.url }}" alt="" class="img-thumbnail" height="80px" width="80px"></td>
                         <td>{{ producto.descripcion }}</td>
                         <td>{{ producto.existencia }}</td>
-                        <td>{{ producto.fecha_creacion|date:"d/m/Y" }}</td>
                         <td>{{ producto.fecha_modificacion|date:"d/m/Y" }}</td>
-                        <td>{{ producto.usuario_creacion|title }}</td>
-                        <td>
-                          {% if producto.usuario_modificacion is None %}
-                          <p>----------------</p>
-                          {% else %}
-                          <p>{{ producto.usuario_modificacion|title }}</p>
-                          {% endif %}    
-                        </td>
-                        <td style="font-size: 20px;">
+                        <td style="font-size: 20px;" class="text-center">
                             <a href="#" class="update-producto" data-form-url="{% url 'producto_edit' producto.pk %}">
-                                <i class="fas fa-edit text-warning mr-3"></i>
+                                <i class="fas fa-edit text-warning fa-sm" title="Editar"></i>
                             </a>
                             <a href="{% url 'producto_inactivar' producto.pk %}">
                             {% if producto.estado is True %}
-                            <i class="fas fa-toggle-on text-success"></i>
+                            <i class="fas fa-toggle-on text-success fa-sm" title="Inactivar"></i>
                             {% else %}
-                            <i class="fas fa-toggle-off text-danger"></i>
+                            <i class="fas fa-toggle-off text-danger fa-sm" title="Activar"></i>
                             {% endif %}
+                            </a>
+                            <a href="{% url 'salida_new' producto.pk %}">
+                              <i class="fas fa-bullhorn text-danger fa-sm" title="Editar"></i>
                             </a>
                         </td>
                     </tr>
